@@ -1,0 +1,644 @@
+<div class="main-container" id="main-container">
+<script type="text/javascript">
+	seajs.use(["ace-extra"], function (ace) {
+		try {
+			ace.settings.check('main-container', 'fixed')
+		} catch (e) {
+		}
+	})
+</script>
+
+<div class="main-container-inner">
+<a class="menu-toggler" id="menu-toggler" href="#">
+	<span class="menu-text"></span>
+</a>
+
+<div class="sidebar" id="sidebar">
+<script type="text/javascript">
+	seajs.use(["ace-extra"], function (ace) {
+		try {
+			ace.settings.check('sidebar', 'fixed')
+		} catch (e) {
+		}
+	})
+</script>
+<div class="sidebar-shortcuts" id="sidebar-shortcuts">
+	<div class="sidebar-shortcuts-large" id="sidebar-shortcuts-large">
+		<button class="btn btn-success">
+			<i class="icon-signal"></i>
+		</button>
+
+		<button class="btn btn-info">
+			<i class="icon-pencil"></i>
+		</button>
+
+		<button class="btn btn-warning home"  title="后台首页">
+			<i class="icon-home"></i>
+		</button>
+
+		<button class="btn btn-danger clear" title="清空缓存">
+			<i class="icon-cog"></i>
+
+		</button>
+	</div>
+
+	<div class="sidebar-shortcuts-mini" id="sidebar-shortcuts-mini">
+		<span class="btn btn-success"></span>
+
+		<span class="btn btn-info"></span>
+
+		<span class="btn btn-warning"></span>
+
+		<span class="btn btn-danger"></span>
+	</div>
+	<script>
+		seajs.use(['$'],function($){
+			$('button.home').click(function(){
+				window.open("{:U('Admin/Index/index')}");
+			})
+			$('button.clear').click(function(){
+				$.ajax({
+					url : "{:U('Setting/clearCache')}",
+					success : function (data) {
+						if ( data.status > 0 ) {
+							bootbox.alert(data.info, function () {
+
+							});
+						} else {
+							bootbox.alert({
+								message : data.info,
+								title : "提示信息"
+							});
+							return false;
+						}
+					}
+				})
+			})
+
+		})
+	</script>
+</div>
+<!-- #sidebar-shortcuts -->
+<span id="dataphp"
+      data-controller="{$Think.const.CONTROLLER_NAME}"
+      data-action="{$Think.const.ACTION_NAME}"></span>
+<ul class="nav nav-list">
+
+
+
+<li>
+	<a href="javascript:void(0)" class="dropdown-toggle">
+		<i class="icon-user"></i>
+		<span class="menu-text"> 前端会员管理</span>
+		<b class="arrow icon-angle-down"></b>
+	</a>
+		<ul class="submenu">
+				<li class="frontuser">
+					<a href="{:U('FrontUser/index')}">
+						<i class="icon-leaf"></i>
+						会员管理
+					</a>
+				</li>
+				<li class="frontrole">
+					<a href="{:U('FrontRole/index')}">
+						<i class="icon-home"></i>
+						角色管理
+					</a>
+				</li>
+				<li class="frontnode">
+					<a href="{:U('FrontNode/index')}">
+						<i class="icon-laptop"></i>
+						节点管理
+					</a>
+				</li>
+				
+				
+				<li>
+					<a href="javascript:void(0)" class="dropdown-toggle">
+						<i class="icon-double-angle-right"></i>
+						部门管理
+						<b class="arrow icon-angle-down"></b>
+					</a>
+					<ul class="submenu" id="departmant">
+						<li class="index">
+							<a href="{:U('Departmant/index')}">
+								<i class="icon-leaf"></i>
+								浏览部门
+							</a>
+						</li>
+						<li class="add">
+							<a href="{:U('Departmant/add')}">
+								<i class="icon-leaf"></i>
+								添加部门
+							</a>
+						</li>
+					</ul>
+				</li>
+				
+				
+			</ul>
+
+</li>
+
+
+<li id="catetag">
+	<a href="#" class="dropdown-toggle">
+		<i class="icon-list"></i>
+		<span class="menu-text"> 分类/标签</span>
+
+		<b class="arrow icon-angle-down"></b>
+	</a>
+	<ul class="submenu">
+		<li>
+			<a href="javascript:void(0)" class="dropdown-toggle">
+				<i class="icon-double-angle-right"></i>
+				分类管理
+				<b class="arrow icon-angle-down"></b>
+			</a>
+			<ul class="submenu" id="category">
+				<li class="index">
+					<a href="{:U('Category/index')}">
+						<i class="icon-leaf"></i>
+						浏览分类
+					</a>
+				</li>
+				<li class="add">
+					<a href="{:U('Category/add')}">
+						<i class="icon-leaf"></i>
+						添加分类
+					</a>
+				</li>
+			</ul>
+		</li>
+		<li>
+			<a href="javascript:void(0)" class="dropdown-toggle">
+				<i class="icon-double-angle-right"></i>
+				标签管理
+				<b class="arrow icon-angle-down"></b>
+			</a>
+			<ul class="submenu" id="tag">
+				<li class="index">
+					<a href="{:U('Tag/index')}">
+						<i class="icon-leaf"></i>
+						浏览标签
+					</a>
+				</li>
+				<li class="add">
+					<a href="{:U('Tag/add')}">
+						<i class="icon-leaf"></i>
+						添加标签
+					</a>
+				</li>
+			</ul>
+		</li>
+	</ul>
+</li>
+
+<!-- 通讯录管理 start -->
+<li>
+	<a href="#" class="dropdown-toggle">
+		<i class="icon-edit"></i>
+		<span class="menu-text"> 签到管理</span>
+		<b class="arrow icon-angle-down"></b>
+	</a>
+	<ul class="submenu" id="check">
+		<li class="index">
+			<a href="{:U('Check/index')}" class="dropdown-toggle">
+				<i class="icon-double-angle-right"></i>
+				签到记录
+			</a>
+		</li>
+		<li class="rule add">
+			<a href="{:U('Check/rule')}" class="dropdown-toggle">
+				<i class="icon-double-angle-right"></i>
+				打卡规则
+			</a>
+		</li>
+		
+	</ul>
+</li>
+<!-- 通讯录管理 end -->
+
+<!-- 移动办公管理 start -->
+<li>
+	<a href="#" class="dropdown-toggle">
+		<i class="icon-check"></i>
+		<span class="menu-text"> 请假管理</span>
+		<b class="arrow icon-angle-down"></b>
+	</a>
+	<ul class="submenu" id="leaved">
+		<li class="index editapp">
+			<a href="{:U('Leaved/index')}" class="dropdown-toggle">
+				<i class="icon-double-angle-right"></i>
+				请假记录
+			</a>
+		</li>
+		<!--<li class="tlist add">
+			<a href="{:U('Leaved/tlist')}" class="dropdown-toggle">
+				<i class="icon-double-angle-right"></i>
+				请假类型
+			</a>
+		</li>-->
+		<li class="approve addapprove provedit">
+			<a href="{:U('Leaved/approve')}" class="dropdown-toggle">
+				<i class="icon-double-angle-right"></i>
+				审批设置
+			</a>
+		</li>
+		
+	</ul>
+</li>
+<!-- 移动办公管理 end -->
+
+<!-- 公告管理 start -->
+<li>
+	<a href="#" class="dropdown-toggle ">
+		<i class="icon-volume-up"></i>
+		<span class="menu-text"> 公告管理 </span>
+
+		<b class="arrow icon-angle-down"></b>
+	</a>
+	<ul class="submenu" id="announcement">
+		<li class="index">
+			<a href="{:U('Announcement/index')}" >
+				<i class="icon-double-angle-right"></i>
+				公告信息
+				<b class="arrow icon-angle-down"></b>
+			</a>
+		</li>
+		<li class="add">
+			<a href="{:U('Announcement/add')}" >
+				<i class="icon-double-angle-right"></i>
+				发布公告
+				<b class="arrow icon-angle-down"></b>
+			</a>
+		</li>
+		<!--<li class="comment">
+			<a href="{:U('Announcement/comment')}" class="dropdown-toggle">
+				<i class="icon-double-angle-right"></i>
+				评论列表
+				<b class="arrow icon-angle-down"></b>
+			</a>
+		</li>-->
+
+	</ul>
+</li>
+
+
+<!-- 公告管理 end -->
+
+
+<li>
+	<a href="#" class="dropdown-toggle">
+		<i class="icon-signal"></i>
+		<span class="menu-text"> 业绩目标追踪</span>
+		<b class="arrow icon-angle-down"></b>
+	</a>
+	<ul class="submenu" id="kpi">
+		<li class="index">
+			<a href="{:U('Kpi/index')}">
+				<i class="icon-double-angle-right"></i>
+				考核列表
+			</a>
+		</li>
+		<li class="add">
+			<a href="{:U('Kpi/add')}">
+				<i class="icon-double-angle-right"></i>
+				添加考核规则
+			</a>
+		</li>
+	</ul>
+</li>
+
+
+<li id="logistics">
+	<a href="#" class="dropdown-toggle">
+		<i class="icon-map-marker"></i>
+		<span class="menu-text"> 物流管理</span>
+		<b class="arrow icon-angle-down"></b>
+	</a>
+	<ul class="submenu">
+		<li class="index">
+			<a href="{:U('logistics/index')}" class="dropdown-toggle">
+				<i class="icon-double-angle-right"></i>
+				物流列表
+				<b class="arrow icon-angle-down"></b>
+			</a>
+		</li>
+	</ul>
+</li>
+
+<li id="stock">
+	<a href="#" class="dropdown-toggle">
+		<i class="icon-inbox"></i>
+		<span class="menu-text"> 库存管理</span>
+
+		<b class="arrow icon-angle-down"></b>
+	</a>
+	<ul class="submenu" >
+		<li class="index">
+			<a href="{:U('stock/index')}" class="dropdown-toggle">
+				<i class="icon-double-angle-right"></i>
+				库存列表
+				<b class="arrow icon-angle-down"></b>
+			</a>
+		</li>
+		
+	</ul>
+</li>
+
+<li id="finance">
+	<a href="#" class="dropdown-toggle">
+		<i class="icon-gift"></i>
+		<span class="menu-text"> 应收账款</span>
+
+		<b class="arrow icon-angle-down"></b>
+	</a>
+	<ul class="submenu">
+		<li class="index">
+			<a href="{:U('finance/index')}" class="dropdown-toggle">
+				<i class="icon-double-angle-right"></i>
+				账款记录
+				<b class="arrow icon-angle-down"></b>
+			</a>
+		</li>
+	</ul>
+</li>
+
+<li id="intro">
+	<a href="#" class="dropdown-toggle">
+		<i class="icon-desktop"></i>
+		<span class="menu-text"> 经销商介绍</span>
+
+		<b class="arrow icon-angle-down"></b>
+	</a>
+	<ul class="submenu">
+		<li class="edit">
+			<a href="{:U('intro/edit')}" class="dropdown-toggle">
+				<i class="icon-double-angle-right"></i>
+				公司介绍
+				<b class="arrow icon-angle-down"></b>
+			</a>
+		</li>
+	</ul>
+</li>
+
+<li id="userman">
+	<a href="#" class="dropdown-toggle">
+		<i class="icon-heart"></i>
+		<span class="menu-text"> 销售名片夹</span>
+
+		<b class="arrow icon-angle-down"></b>
+	</a>
+	<ul class="submenu">
+		<li>
+			<a href="javascript:void(0)" class="dropdown-toggle">
+				<i class="icon-double-angle-right"></i>
+
+				用户组
+				<b class="arrow icon-angle-down"></b>
+			</a>
+			<ul class="submenu" id="user">
+				<li class="index">
+					<a href="{:U('User/index')}">
+						<i class="icon-leaf"></i>
+						用户列表
+					</a>
+				</li>
+				<li class="add">
+					<a href="{:U('User/add')}">
+						<i class="icon-leaf"></i>
+						添加用户
+					</a>
+				</li>
+			</ul>
+		</li>
+		
+	</ul>
+</li>
+
+
+
+
+
+
+
+<li id="product">
+	<a href="javascript:void(0)" class="dropdown-toggle">
+		<i class="icon-shopping-cart"></i>
+		<span class="menu-text"> 产品管理</span>
+
+		<b class="arrow icon-angle-down"></b>
+	</a>
+	<ul class="submenu">
+		<li class="index edit">
+			<a href="{:U('product/index')}" class="dropdown-toggle">
+				<i class="icon-double-angle-right"></i>
+				产品列表
+				<b class="arrow icon-angle-down"></b>
+			</a>
+		</li>
+	</ul>
+</li>
+
+
+
+
+<li id="custom">
+	<a href="javascript:void(0)" class="dropdown-toggle">
+		<i class="icon-book"></i>
+		<span class="menu-text"> 员工客户管理</span>
+
+		<b class="arrow icon-angle-down"></b>
+	</a>
+	<ul class="submenu">
+		<li class="index edit">
+			<a href="{:U('custom/index')}" class="dropdown-toggle">
+				<i class="icon-double-angle-right"></i>
+				客户列表
+				<b class="arrow icon-angle-down"></b>
+			</a>
+		</li>
+	</ul>
+</li>
+
+
+<li id="outdata">
+	<a href="#" class="dropdown-toggle">
+		<i class="icon-globe"></i>
+		<span class="menu-text"> DT数据管理</span>
+
+		<b class="arrow icon-angle-down"></b>
+	</a>
+	<ul class="submenu" >
+		<li class="product">
+			<a href="{:U('Outdata/product')}">
+				<i class="icon-double-angle-right"></i>
+				产品主数据
+			</a>
+		</li>
+		<li class="custom">
+			<a href="{:U('Outdata/custom')}">
+				<i class="icon-double-angle-right"></i>
+				客户主数据
+			</a>
+		</li>
+		<li class="sales">
+			<a href="{:U('Outdata/sales')}">
+				<i class="icon-double-angle-right"></i>
+				销售订单数据
+			</a>
+		</li>
+		<li class="send">
+			<a href="{:U('Outdata/send')}">
+				<i class="icon-double-angle-right"></i>
+				发货单数据
+			</a>
+		</li>
+		<li class="instore">
+			<a href="{:U('Outdata/instore')}">
+				<i class="icon-double-angle-right"></i>
+				进货数据
+			</a>
+		</li>
+
+		<li class="stoke">
+			<a href="{:U('Outdata/stoke')}">
+				<i class="icon-double-angle-right"></i>
+				库存数据
+			</a>
+		</li>
+
+		<li class="finance">
+			<a href="{:U('Outdata/finance')}">
+				<i class="icon-double-angle-right"></i>
+				应收账款
+			</a>
+		</li>
+
+
+		<li class="adminlist">
+			<a href="{:U('Outdata/adminlist')}">
+				<i class="icon-double-angle-right"></i>
+				经销商列表
+			</a>
+		</li>
+
+		<li class="typelist">
+			<a href="{:U('Outdata/typelist')}">
+				<i class="icon-double-angle-right"></i>
+				组织架构表
+			</a>
+		</li>
+	</ul>
+</li>
+
+<eq name="user.f_corpid" value="1">
+<li>
+	<a href="#" class="dropdown-toggle">
+		<i class="icon-wrench"></i>
+		<span class="menu-text"> 经销商管理</span>
+		<b class="arrow icon-angle-down"></b>
+	</a>
+	<ul class="submenu" id="dealer">
+		<li class="index">
+			<a href="{:U('Dealer/index')}">
+				<i class="icon-double-angle-right"></i>
+				经销商列表
+			</a>
+		</li>
+		<li class="add">
+			<a href="{:U('Dealer/add')}">
+				<i class="icon-double-angle-right"></i>
+				添加经销商
+			</a>
+		</li>
+	</ul>
+</li>
+</eq>
+
+<li>
+	<a href="javascript:void(0)" class="dropdown-toggle">
+		<i class="icon-cogs"></i>
+		<span class="menu-text"> 权限管理</span>
+
+		<b class="arrow icon-angle-down"></b>
+	</a>
+		<ul class="submenu">
+				<li class="admin">
+					<a href="{:U('Admin/index')}">
+						<i class="icon-leaf"></i>
+						后台管理员
+					</a>
+				</li>
+				<li class="role">
+					<a href="{:U('Role/index')}">
+						<i class="icon-home"></i>
+						角色管理
+					</a>
+				</li>
+				<li class="node">
+					<a href="{:U('Node/index')}">
+						<i class="icon-laptop"></i>
+						节点管理
+					</a>
+				</li>
+
+			</ul>
+
+</li>
+
+</ul>
+<!-- /.nav-list -->
+
+<div class="sidebar-collapse" id="sidebar-collapse">
+	<i class="icon-double-angle-left" data-icon1="icon-double-angle-left" data-icon2="icon-double-angle-right"></i>
+</div>
+
+<script type="text/javascript">
+	seajs.use(["ace-extra"], function (ace) {
+		try {
+			ace.settings.check('sidebar', 'collapsed')
+		} catch (e) {
+		}
+	})
+	//左侧菜单栏 open+active
+	seajs.use(['$'], function ($) {
+		var controller = $("#dataphp").attr("data-controller").toLocaleLowerCase();
+		var action = $("#dataphp").attr("data-action").toLocaleLowerCase();
+		(function () {
+			if ( action ) {
+				$("#" + controller).find("." + action).addClass("active").siblings().removeClass("active");
+				$("#" + controller).find("." + action).parents("li").addClass("active open").siblings().removeClass("active open");
+			}
+			//管理组特别处理
+			var rbac = ['admin', 'role', 'node','frontuser','frontrole','frontnode'];
+			if ( rbac.toString().indexOf(controller) > -1 ) {
+				$("."+controller).addClass("active").siblings().removeClass('active');
+				$("."+controller).parents("li").addClass("active open").siblings().removeClass("active open");
+			}
+		})();
+	})
+</script>
+</div>
+<!--右侧内容 start-->
+<div class="main-content">
+	<!--面包屑 start-->
+	<div class="breadcrumbs" id="breadcrumbs">
+		<script type="text/javascript">
+			seajs.use(["ace-extra"], function (ace) {
+				try {
+					ace.settings.check('breadcrumbs', 'fixed')
+				} catch (e) {
+				}
+			})
+		</script>
+
+		<ul class="breadcrumb">
+			<li>
+				<i class="icon-home home-icon"></i>
+				<a href="{:U('Index/index')}">首页</a>
+			</li>
+		</ul>
+		<!--面包屑 end-->
+	</div>

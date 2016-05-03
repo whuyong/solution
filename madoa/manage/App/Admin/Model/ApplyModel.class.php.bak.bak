@@ -1,0 +1,51 @@
+<?php
+/*
+ *
+ * @author     Never、more
+ * @Created  2015/1/13
+ */
+namespace Admin\Model;
+
+use Think\Model\RelationModel;
+
+class ApplyModel extends RelationModel {
+
+	//自动验证
+	protected $_validate = array(
+		array('f_uid', 'require', '请填写用户名'),
+		array('f_nextid', 'require', '请填写审批人'),
+		array('f_start', 'require', '请填写开始时间'),
+		array('f_end', 'require', '请选择结束时间'),
+	);
+
+	//自动完成
+	protected $_auto = array(
+		array('f_lastimte', 'time', 2, 'function')
+		
+	);
+
+	//关联模型
+	protected $_link = array(
+		'front_user' => array(//关联内容表
+			'mapping_type'   => self::BELONGS_TO,
+			'class_name'     => "front_user",
+			"foreign_key"    => 'f_uid',
+			"mapping_fields" => 'f_name',
+			"as_fields"      => 'f_name:uname',
+		),
+                'category'  =>  array(
+                        'mapping_type'   => self::BELONGS_TO,
+			'class_name'     => "category",
+			"foreign_key"    => 'f_type',
+			"mapping_fields" => 'name',
+			"as_fields"      => 'name:ctname'
+                ),
+                'corp'  =>  array(
+                        'mapping_type'   => self::BELONGS_TO,
+			'class_name'     => "corp",
+			"foreign_key"    => 'f_corpid',
+			"mapping_fields" => 'f_name',
+			"as_fields"      => 'f_name:cpname'
+                )
+	);
+}

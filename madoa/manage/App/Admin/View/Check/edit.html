@@ -1,0 +1,188 @@
+﻿<include file="Public/header"/>
+<include file="Public/menu"/>
+
+<div class="page-content">
+	<div class="page-header">
+		<h1>
+			签到管理
+			<small>
+				<i class="icon-double-angle-right"></i>
+				<eq name="Think.ACTION_NAME" value="edit">修改规则<else/>添加规则</eq>
+			</small>
+		</h1>
+	</div>
+	<!-- /.page-header -->
+	<!-- PAGE CONTENT BEGINS -->
+	<div class="row">
+		<div class="col-xs-12">
+			<div class="row">
+				<div class="tabbable">
+					<ul class="nav nav-tabs" id="myTab">
+						<li>
+							<a href="{:U('Check/rule')}">
+								<i class="green icon-home bigger-110"></i>
+								规则列表
+							</a>
+						</li>
+						<li class="active">
+							<a>
+								<i class="green icon-edit bigger-110"></i>
+								<eq name="Think.ACTION_NAME" value="edit">修改规则<else/>添加规则</eq>
+							</a>
+						</li>
+					</ul>
+					<div class="tab-content">
+						<div class="row">
+							<div class="col-xs-4">
+								<form class="form-horizontal" id="ajaxForm"  action='<eq name="Think.ACTION_NAME" value="edit">{:U("Check/update")}<else/>{:U("Check/insert")}</eq>' method="post">
+									<input type="hidden" name="userid" value="{$Think.get.uid}"/>
+									<input type="hidden" name="f_corpid" value="{$user.f_corpid}"/>
+									<div class="space-10"></div>
+									<eq name="Think.ACTION_NAME" value="add">
+									<div class="form-group">
+										<label class="col-sm-3 control-label"> 规则名称 </label>
+										<div class="col-sm-9">
+											<input type="text"  name="username" value="" class="col-xs-9"/>
+										</div>
+									</div>
+									
+									<div class="form-group">
+										<label class="col-sm-3 control-label"> 适用时间 </label>
+										<div class="col-sm-9">
+											<div class="row">
+															<div class="col-xs-8 col-sm-11">
+																<div class="input-group">
+																	<span class="input-group-addon">
+																		<i class="icon-calendar bigger-110"></i>
+																	</span>
+																	<input class="form-control" type="text" name="date-range-picker" id="id-date-range-picker-1" />
+																</div>
+															</div>
+														</div>
+										</div>
+									</div>
+									
+									<div class="form-group">
+										<label class="col-sm-3 control-label"> 工作周期 </label>
+										<div class="col-sm-9">
+											<input name="weeks[]" type="checkbox" class="ace" level="action" value="146" checked/>
+											<span class="lbl"> 星期一</span>
+											<input name="weeks[]" type="checkbox" class="ace" level="action" value="129" checked/>
+											<span class="lbl"> 星期二</span>
+											<input name="weeks[]" type="checkbox" class="ace" level="action" value="129" checked/>
+											<span class="lbl"> 星期三</span>
+											<input name="weeks[]" type="checkbox" class="ace" level="action" value="129" checked/>
+											<span class="lbl"> 星期四</span>
+											<input name="weeks[]" type="checkbox" class="ace" level="action" value="129" checked/>
+											<span class="lbl"> 星期五</span>
+											<input name="weeks[]" type="checkbox" class="ace" level="action" value="129" />
+											<span class="lbl"> 星期六</span>
+											<input name="weeks[]" type="checkbox" class="ace" level="action" value="129" />
+											<span class="lbl"> 星期日</span>
+												
+										</div>
+									</div>
+									</eq>
+									<div class="form-group">
+										<label class="col-sm-3 control-label"> 上午工作时间 </label>
+										<div class="col-sm-9">
+											
+											<div class="input-group clockpicker">
+												<input type="text" class="form-control" value="09:30">
+												<span class="input-group-addon"></span>
+											</div>
+											~
+											<div class="input-group clockpicker">
+												<input type="text" class="form-control" value="12:00">
+												<span class="input-group-addon"></span>
+											</div>
+											
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-3 control-label" >下午工作时间</label>
+
+										<div class="col-sm-6">
+											<div class="input-group clockpicker">
+												<input type="text" class="form-control" value="12:30">
+												<span class="input-group-addon"></span>
+											</div>
+											~
+											<div class="input-group clockpicker">
+												<input type="text" class="form-control" value="18:00">
+												<span class="input-group-addon"></span>
+											</div>
+										</div>
+									</div>
+									
+									<div class="form-group">
+										<label class="col-sm-3 control-label" >上班提醒</label>
+
+										<div class="col-sm-6">
+											<select class=" width-30" name="f_corpid">
+											<option value="0">0</option>
+											<option value="1">1</option>
+											</select>小时
+											<select class=" width-30" name="f_corpid">
+											<option value="0">0</option>
+											<option value="1">1</option>
+											</select>分钟
+										</div>
+									</div>
+									</eq>
+									<hr/>
+									<div class="center">
+										<button class="btn btn-info " type="submit">
+											<i class="icon-ok bigger-110"></i>
+											提交
+										</button>
+									</div>
+								</form>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- PAGE CONTENT END -->
+														
+</div>
+</div>
+</div>
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/clockpicker/dist/jquery-clockpicker.min.css"/>
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/clockpicker/assets/css/github.min.css"/>
+<link rel="stylesheet" href="__PUBLIC__/clockpicker/assets/js/date-time/daterangepicker.css" />
+<style type="text/css">
+.input-group {
+	width: 238px;
+	margin-bottom: 0px;
+}
+</style>
+<script type="text/javascript" src="__PUBLIC__/clockpicker/assets/js/jquery.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/clockpicker/dist/jquery-clockpicker.min.js"></script>
+
+<script src="__PUBLIC__/clockpicker/assets/js/date-time/moment.min.js"></script>
+<script src="__PUBLIC__/clockpicker/assets/js/date-time/daterangepicker.min.js"></script>
+<script type="text/javascript">
+$('.clockpicker').clockpicker();
+
+$('.clockpicker').clockpicker()
+	.find('input').change(function(){
+		console.log(this.value);
+	});
+
+if (/Mobile/.test(navigator.userAgent)) {
+	$('input').prop('readOnly', true);
+}
+
+$('input[name=date-range-picker]').daterangepicker().prev().on(ace.click_event, function(){
+					$(this).next().focus();
+				});
+</script>
+<!-- inline scripts related to this page -->
+<script type="text/javascript">
+</script>
+<include file="Public/footer"/>
+

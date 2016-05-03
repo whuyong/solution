@@ -1,0 +1,93 @@
+﻿<include file="Public/header"/>
+<include file="Public/menu"/>
+<style type="text/css">
+	select.cate {font-size: 18px}
+</style>
+<div class="page-content">
+	<div class="page-header">
+		<h1>
+			部门
+			<small>
+				<i class="icon-double-angle-right"></i>
+				<eq name="Think.ACTION_NAME" value="edit">修改部门
+					<else/>
+					添加部门
+				</eq>
+			</small>
+		</h1>
+	</div>
+	<!-- /.page-header -->
+	<!-- PAGE CONTENT BEGINS -->
+	<div class="row">
+		<div class="col-xs-12">
+			<div class="row">
+				<div class="tabbable">
+					<ul class="nav nav-tabs" id="myTab">
+						<li>
+							<a href="{:U('Departmant/index')}">
+								<i class="green icon-home bigger-110"></i>
+								浏览部门
+							</a>
+						</li>
+						<li class="active">
+							<a>
+								<i class="green icon-edit bigger-110"></i>
+								<eq name="Think.ACTION_NAME" value="edit">修改部门
+									<else/>
+									添加部门
+								</eq>
+							</a>
+						</li>
+					</ul>
+					<div class="tab-content">
+						<div class="row">
+							<div class="col-xs-4">
+								<form class="form-horizontal" id="ajaxForm" action='<eq name="Think.ACTION_NAME" value="edit">{:U("Departmant/update")}<else/>{:U("Departmant/insert")}</eq>' method="post">
+									<input type="hidden" name="f_id" value="{$item.f_id}"/>
+									<hr/>
+									<div class="form-group">
+										<label class="col-sm-3 control-label" >上级部门</label>
+
+										<div class="col-sm-9">
+											<select class=" width-90 form-control cate" name="f_pid" {$disabled} >
+												<option value="0">作为主部门</option>
+												<foreach name="list" item="v">
+													<option value="{$v.f_id}|{$v.path}" {$v.selected}>{$v.f_title}</option>
+												</foreach>
+											</select>
+										</div>
+									</div>
+									<div class="space-10"></div>
+									<div class="form-group">
+										<label class="col-sm-3 control-label"> 部门名称 </label>
+										<div class="col-sm-9">
+											<input type="text"  name="f_title" value="{$item.f_title}"/>
+										</div>
+									</div>
+									
+									
+									<hr/>
+									<div class="center">
+										<button class="btn btn-info " type="submit">
+											<i class="icon-ok bigger-110"></i>
+											提交
+										</button>
+									</div>
+								</form>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- PAGE CONTENT END -->
+</div>
+</div>
+</div>
+<!-- inline scripts related to this page -->
+<script type="text/javascript">
+</script>
+<include file="Public/footer"/>
+

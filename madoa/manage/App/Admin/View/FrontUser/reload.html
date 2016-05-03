@@ -1,0 +1,81 @@
+﻿<include file="Public/header"/>
+<include file="Public/menu"/>
+
+<div class="page-content">
+	<div class="page-header">
+		<h1>
+			用户管理
+			<small>
+				<i class="icon-double-angle-right"></i>
+				<eq name="Think.ACTION_NAME" value="edit">修改用户<else/>添加用户</eq>
+			</small>
+		</h1>
+	</div>
+	<!-- /.page-header -->
+	<!-- PAGE CONTENT BEGINS -->
+	<div class="row">
+		<div class="col-xs-12">
+			<div class="row">
+				<div class="tabbable">
+					<ul class="nav nav-tabs" id="myTab">
+						<li>
+							<a href="{:U('FrontUser/index')}">
+								<i class="green icon-home bigger-110"></i>
+								用户列表
+							</a>
+						</li>
+						<li>
+							<a href="{:U('FrontUser/add')}">
+								<i class="green icon-edit bigger-110"></i>
+								添加用户
+							</a>
+							
+						</li>
+						<li class="active">
+							<a href="{:U('FrontUser/reload')}">
+								<i class="green  icon-refresh bigger-110"></i>
+								同步员工
+							</a>
+						</li>
+						
+					</ul>							
+
+					<div class="tab-content">
+						<div class="row">
+							<div class="col-xs-4">
+								<form class="form-horizontal" id="ajaxForm" action='<eq name="Think.ACTION_NAME" value="edit">{:U("FrontUser/update")}<else/>{:U("FrontUser/insert")}</eq>' method="post">
+									<input type="hidden" name="userid" value="{$Think.get.uid}"/>
+									<div class="space-10"></div>
+									
+									<div class="form-group">
+										<label class="col-sm-3 control-label no-padding-right" > 完全同步</label>
+										<div class="col-sm-9">
+											<input type="radio" name="status" class="ace" value="1"/>
+											<span class="lbl"> 完全同步会自动进行，5分钟之后刷新 </span>
+										</div>
+									</div>
+									<hr/>
+									<div class="center">
+										<button class="btn btn-info " type="submit">
+											<i class="icon-ok bigger-110"></i>
+											提交
+										</button>
+									</div>
+								</form>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- PAGE CONTENT END -->
+</div>
+</div>
+</div>
+<!-- inline scripts related to this page -->
+<script type="text/javascript">
+</script>
+<include file="Public/footer"/>
+

@@ -1,0 +1,143 @@
+﻿<include file="Public/header"/>
+<include file="Public/menu"/>
+<div class="page-content">
+	<div class="page-header">
+		<h1>
+			请假管理
+			<small>
+				<i class="icon-double-angle-right"></i>
+				请假列表
+			</small>
+		</h1>
+	</div>
+	<!-- /.page-header -->
+	<!-- PAGE CONTENT BEGINS -->
+	<div class="row">
+		<div class="col-xs-12">
+			<div class="row">
+				<div class="tabbable">
+					<ul class="nav nav-tabs" id="myTab">
+						<li class="">
+							<a href="{:U('Leaved/index')}">
+								<i class="green icon-home bigger-110"></i>
+								请假记录
+							</a>
+						</li>
+				 		 <li class="active">
+							<a>
+								<i class="green icon-edit bigger-110"></i>
+								修改请假
+							</a>
+						</li>	
+					</ul>
+					<div class="tab-content">
+						<div class="tab-pane in active">
+							<form  id="ajaxForm" class="form-horizontal" action="{:U('Leaved/updateapp')}" method="post" enctype="multipart/form-data">
+								<input type="hidden" name="f_id" value="{$data.f_id}"/>
+								<div class="space-4"></div>
+								<div class="form-group">
+									<label class="col-sm-3 control-label no-padding-right" > 申请人 </label>
+									<div class="col-sm-9">
+										<input type="text"  readonly="readonly"  class="col-xs-10 col-sm-5" value="{$data.uname}"/>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-3 control-label no-padding-right" > 申请部门 </label>
+									<div class="col-sm-9">
+										<input type="text"  readonly="readonly"  class="col-xs-10 col-sm-5" value="{$data.cpname}"/>
+									</div>
+								</div>
+                                                                <div class="form-group">
+									<label class="col-sm-3 control-label no-padding-right" > 类型 </label>
+									<div class="col-sm-9">
+										<input type="text"  readonly="readonly"  class="col-xs-10 col-sm-5" value="{$data.ctname}"/>
+									</div>
+								</div>
+                                                                 <div class="form-group">
+									<label class="col-sm-3 control-label no-padding-right"  > 开始时间 </label>
+									<div class="col-sm-9">
+										<input type="text"  name="f_start" id="start_time" class="col-xs-10 col-sm-5" value="{$data.f_start}"/>
+									</div>
+								</div>
+                                                                 <div class="form-group">
+									<label class="col-sm-3 control-label no-padding-right" > 结束时间 </label>
+									<div class="col-sm-9">
+										<input type="text"  name="f_end" id="end_time" class="col-xs-10 col-sm-5" value="{$data.f_end}"/>
+									</div>
+								</div>
+                                                                <div class="form-group">
+									<label class="col-sm-3 control-label no-padding-right" > 总计 </label>
+									<div class="col-sm-9">
+										<input type="text"  name="f_total" readonly="readonly"  class="col-xs-10 col-sm-5" value="{$data.f_total}"/>小时
+									</div>
+								</div>
+                                                                 <div class="form-group">
+									<label class="col-sm-3 control-label no-padding-right" > 备注信息 </label>
+									<div class="col-sm-9">
+										<input type="text"  name="f_info"  class="col-xs-10 col-sm-5" value="{$data.f_info}"/>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-3 control-label no-padding-right" > 状态</label>
+									<div class="col-sm-2">
+										<input type="radio" name="f_at" class="ace"
+										       <eq name="data.f_at" value="1">checked<else/></eq>
+												<eq name="data.status" value="">checked<else/></eq> value="1"/>
+										<span class="lbl"> 已审批 </span>
+										<input  type="radio" name="f_at" class="ace"
+										<eq name="data.f_at" value="0">checked<else/></eq> value="2"/>
+
+										<span class="lbl"> 未审批 </span>
+									</div>
+								</div>
+
+								<div class="space-4"></div>
+
+								<div class="clearfix form-actions">
+									<div class="col-md-offset-3 col-md-9">
+										<button class="btn btn-info" type="submit">
+											<i class="icon-ok bigger-110"></i>
+											提交
+										</button>
+
+										&nbsp; &nbsp; &nbsp;
+										<button class="btn" type="button" onclick="history.back()">
+											<i class="icon-undo bigger-110"></i>
+											返回
+										</button>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- PAGE CONTENT END -->
+</div>
+</div>
+</div>
+
+<script type="text/javascript">
+	seajs.use([ "admin-common",'$', 'bootstrap3.0', "datetimepiker-css", 'bootstrap-datetime'], function (admin, $) {
+           var formstarttime= $("#start_time").datetimepicker({
+                fromat : 'yyyy-mm-dd hh:ii:ss',
+                autoclose : true,
+                todayBtn : true,
+                timepicker:true,
+                lang:"ch"
+                             
+            });
+             var formendtime= $("#end_time").datetimepicker({
+                fromat : 'yyyy-mm-dd hh:ii:ss',
+                autoclose : true,
+                todayBtn : true,
+                timepicker:true,
+                lang:"ch"
+                             
+            });
+        });
+</script>
+<include file="Public/footer"/>
+

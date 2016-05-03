@@ -1,0 +1,377 @@
+﻿<include file="Public/header"/>
+<include file="Public/menu"/>
+<div class="page-content">
+	<div class="page-header">
+		<h1>
+			请假管理
+			<small>
+				<i class="icon-double-angle-right"></i>
+				<eq name="Think.ACTION_NAME" value="edit">审批流程<else/>添加流程</eq>
+			</small>
+		</h1>
+	</div>
+	<!-- /.page-header -->
+	<!-- PAGE CONTENT BEGINS -->
+	<div class="row">
+		<div class="col-xs-12">
+			<div class="row">
+				<div class="tabbable">
+					<ul class="nav nav-tabs" id="myTab">
+						<li>
+							<a href="{:U('Leaved/approve')}">
+								<i class="green icon-home bigger-110"></i>
+								审批流程
+							</a>
+						</li>
+						<li class="active">
+							<a >
+								<i class="green icon-edit bigger-110"></i>
+								<eq name="Think.ACTION_NAME" value="edit">修改流程<else/>添加流程</eq>
+							</a>
+						</li>
+					</ul>
+					<div class="tab-content">
+						<div class="tab-pane in active">
+							<form  id="ajaxForm" class="form-horizontal" action="
+							<eq name='Think.ACTION_NAME' value='edit'>{:U('Leaved/update')}<else/>{:U('Leaved/insert_prov')}</eq>" method="post" enctype="multipart/form-data">
+								<input type="hidden" name="id" value="{$data.id}"/>
+								<input type="hidden" name="module" value="{$data.module}"/>
+								
+
+								<div class="space-4"></div>
+
+								
+								
+								<div class="form-group">
+									<label class="col-sm-3 control-label no-padding-right" > 应用范围 </label>
+									<div class="col-sm-9">
+										<input type="text"  name="f_ugroup" placeholder="请输入应用范围" class="col-xs-10 col-sm-5" value="所有人"  />
+									</div>
+								</div>
+								
+								
+								<div class="form-group">
+										<label class="col-sm-3 control-label"> 审批类型 </label>
+										<div class="col-sm-9">
+											<input name="applytype[]" type="checkbox" class="ace" level="action" value="1" checked/>
+											<span class="lbl"> 事假</span>
+											<input name="applytype[]" type="checkbox" class="ace" level="action" value="2" checked/>
+											<span class="lbl"> 婚假</span>
+											<input name="applytype[]" type="checkbox" class="ace" level="action" value="3" checked/>
+											<span class="lbl"> 外出</span>
+											<input name="applytype[]" type="checkbox" class="ace" level="action" value="4" checked/>
+											<span class="lbl"> 调休</span>
+											<input name="applytype[]" type="checkbox" class="ace" level="action" value="5" checked/>
+											<span class="lbl"> 病假</span>
+											<input name="applytype[]" type="checkbox" class="ace" level="action" value="6" />
+											<span class="lbl"> 其它</span>
+											
+										</div>
+									</div>
+								
+								<div class="form-group">
+									<label class="col-sm-3 control-label no-padding-right" > 级别 </label>
+									<div class="col-sm-9">
+										<select class="form-control input-large" name="sugroup">
+											<option value="1">固定人员</option>
+											<option value="2">上级</option>
+										</select>
+										<div class="col-md-6 red">
+											<br> 固定审批：由管理员固定相应的审批人 
+											<br> 上&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;级：系统自动读取通讯录中的领导为审批人，若有多个领导，微信端会显示出来多个，由用户在微信上从其中选择一个作为审批人 
+										</div>
+									</div>
+								</div>
+								
+								
+								<div class="form-group">
+									<label class="col-sm-3 control-label no-padding-right" > 状态</label>
+									<div class="col-sm-2">
+										<input type="radio" name="status" class="ace"
+										       <eq name="data.status" value="1">checked<else/></eq>
+												<eq name="data.status" value="">checked<else/></eq> value="1"/>
+										<span class="lbl"> 已发布 </span>
+										<input  type="radio" name="status" class="ace"
+										<eq name="data.status" value="2">checked<else/></eq> value="2"/>
+
+										<span class="lbl"> 已禁用 </span>
+									</div>
+								</div>
+
+								<div class="space-4"></div>
+
+								<div class="clearfix form-actions">
+									<div class="col-md-offset-3 col-md-9">
+										<button class="btn btn-info" type="submit">
+											<i class="icon-ok bigger-110"></i>
+											提交
+										</button>
+
+										&nbsp; &nbsp; &nbsp;
+										<button class="btn" type="button">
+											<i class="icon-undo bigger-110"></i>
+											返回
+										</button>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- PAGE CONTENT END -->
+	<link href="__PUBLIC__/new/style.css" rel="stylesheet" type="text/css">
+								<!--sbox html start-->
+								<div id="sbox_area" class="sbox_area" style="display:none">
+									<div class="sbox_div">
+										<div class="sbox_header">
+											<span class="sbox_title">选择范围</span>
+											<a class="js_cancel sbox_close wx_icon icon_close" onclick='close_sbox();'></a>
+										</div>
+										<div class="sbox_content">
+											<div class="sbox_content_sendTo">
+												<div class="js_tips red ui-d-n"></div>
+												<div class="mod-tree-people__input">
+													<ul class="token-input-list input_text">
+													</ul>
+												</div>
+												<div class="js_select">
+													<div class="js_head sbox_tab_bar" style="border-top:1px solid #e5e5e5;">
+														<ul class="tab_filetype_items">
+															<li style="display: list-item;" class="js_phead"><a id="ft_1" class="active" style="cursor: pointer" href="javascript:changeFileType(1);">部门</a></li>
+															<li style="display: list-item;" class="js_mhead"><a id="ft_2" style="cursor: pointer" href="javascript:changeFileType(2);">成员</a></li>
+														</ul>
+													</div>
+													<div style="height:399px;font-size:14px;line-height:30px;text-align:left" class="js_pbody org_list">
+														<div id="dplist_area" class="jstree-wholerow" style="width:100%;height:100%;overflow-y:auto;">
+														</div>
+														<div id="ulist_area" style="width:49.5%;height:100%;float:left;border-left:1px solid #E5E5E5;overflow-y:auto;display:none">
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="sbox_footer ui-ta-c">
+											<a class="js_submit sbox_btn btn_blue" onclick="return saveSboxInfo();" >确定</a>
+										</div>
+									</div>
+								</div>
+								<!--sbox html end-->
+</div>
+</div>
+</div>
+
+<!-- inline scripts related to this page -->
+<script type="text/javascript">
+
+var dlist = {$dlist};
+var ulist = {$ulist};
+
+var cs_list = [{id:1,name:'madhouse',t:'d'},{id:2,name:'madsolution',t:'d'},{id:'chenkui',pic:'http:\/\/shp.qpic.cn\/bizmp\/jwZAYNYpOVTxPYMrQ3gSq33d4u88CdWEZG4DWOu5et6mcleLiaBXvNg\/',t:'u'}];
+
+var sbox_obj = {ft:1,list:[1,2]};
+
+function saveSboxInfo(){
+	alert(JSON.stringify(cs_list));
+	$("#sbox_area").hide();
+}
+
+function close_sbox(){
+	$("#sbox_area").hide();
+}
+
+function showSbox(){
+	var tmp_s1 = getChildNode(dlist);
+	$("#dplist_area").html(tmp_s1);
+
+	showSelectArea();
+
+	var tmp_s2 = getUserList(0);
+	$("#ulist_area").html(tmp_s2);
+	
+	changeFileType(sbox_obj.ft);
+	
+	$("#sbox_area").show();
+
+}
+
+function changeFileType(t){
+	if($.inArray(t,sbox_obj.list) < 0) return;
+	sbox_obj.ft = t;
+	if(t==1){
+		$("#ft_1").addClass("active");
+		$("#ft_2").removeClass("active");
+		$(".jstree-icon-2").show();
+		$("#ulist_area").hide();
+		$("#dplist_area").css("width","100%");
+		$(".jstree-icon-4").removeClass("sbox_dpt_selected");
+	}else if(t==2){
+		$("#ft_1").removeClass("active");
+		$("#ft_2").addClass("active");
+		$("#dplist_area").css("width","50%");
+		$(".jstree-icon-2").hide();
+		$("#ulist_area").show();
+	}
+}
+
+function showSelectArea(){
+	var ss = '';
+	for(var s in cs_list){
+		var s_obj = cs_list[s];
+		if(s_obj.t == 'd'){
+			ss += '<li class="mod-lozenges__item token-input-token"><span class="mod-lozenges__icon"><i class="mod-lozenges__icon-org"></i></span><span class="mod-lozenges__text">'+s_obj.name+'</span><span class="token-input-delete-token"><i class="mod-lozenges__close-icon" data-did="'+s_obj.id+'" onclick="return removeThisDept(this);"></i></span></li>';
+		}else if(s_obj.t == 'u'){
+			ss += '<li class="mod-lozenges__item token-input-token"><span class="mod-lozenges__icon"><img class="mod-lozenges__icon-avatar" src="'+s_obj.pic+'64" alt=""></span><span class="mod-lozenges__text">'+s_obj.id+'</span><span class="token-input-delete-token"><i class="mod-lozenges__close-icon" data-uid="'+s_obj.id+'" onclick="return removeThisUser(this);"></i></span></li>';
+		}
+	}
+	$(".token-input-list").html(ss);
+}
+
+function getChildNode(obj){
+	var ss = '';
+	for(var s in obj){
+		ss += '<div class="jstree-wholerow">';
+		var c_obj = obj[s];
+		var t_class = (checkInSList(c_obj.f_id,'d') > -1)?"jstree-checkbox":"jstree-checkbox-none";
+		ss += '<i class="jstree-icon-1 jstree-ocl '+((c_obj.hasC==1)?"":"v_hn")+'" style="margin-left:'+(c_obj.f_level-1)*25+'px" onclick="return shDeptList(this);"></i><a data-did="'+c_obj.f_id+'" onclick="return showDeptUser(this);"><i class="jstree-icon wx_icon icon_folder_blue"></i>'+c_obj.f_title+'</a><i class="jstree-icon-4"></i><i class="jstree-icon-2 '+t_class+'" data-did="'+c_obj.f_id+'" data-dname="'+c_obj.f_title+'" onclick="return checkThisDept(this);"></i>';
+		if(c_obj.hasC==1){
+			var cnode = getChildNode(c_obj.cNode);
+			ss += cnode;
+		}
+		ss += '</div>';
+	}
+	return ss;
+}
+
+function showDeptUser(obj){
+	if(sbox_obj.ft == 1) return;
+	var did = $(obj).attr("data-did");
+	var tmp_s2 = getUserList(did);
+	$(".jstree-icon-4").removeClass("sbox_dpt_selected");
+	$(obj).next().addClass("sbox_dpt_selected");
+	$("#ulist_area").html(tmp_s2);
+}
+
+function getUserList(did){
+	var did = parseInt(did);
+	var ss = '';
+	for(var s in ulist){
+		var u_obj = ulist[s];
+		if(did > 0){
+			if($.inArray(did,u_obj.f_dpinfo) < 0) continue;
+		}
+		var t_class = (checkInSList(u_obj.f_id,'u') > -1)?"jstree-checkbox":"jstree-checkbox-none";
+		var s_class = (checkInSList(u_obj.f_id,'u') > -1)?"sbox_row_selected":"";
+		ss += '<div class="sbox_user_row '+s_class+'"><img src="'+u_obj.f_pic+'64" width="28" height="28" alt="" style="margin-right:5px;margin-left:15px;vertical-align:middle;margin-top:-2px"/>'+u_obj.f_id+'<i class="jstree-icon-3 '+t_class+'" style="top:11px" data-uid="'+u_obj.f_id+'" data-pic="'+u_obj.f_pic+'" onclick="return checkThisUser(this);"></i></div>';
+	}
+	if(ss=='') ss = '<div class="sbox_user_row sbox-no-user">没有成员</div>';
+	return ss;
+}
+
+function checkInSList(id,type){
+	for(var s in cs_list){
+		var s_obj = cs_list[s];
+		if(s_obj.id == id && s_obj.t == type){
+			return s;
+		}
+	}
+	return -1;
+}
+
+function shDeptList(obj){
+	if($(obj).hasClass("jstree-ocl")){
+		$(obj).removeClass("jstree-ocl");
+		$(obj).addClass("jstree-ocl-closed");
+	}else{
+		$(obj).removeClass("jstree-ocl-closed");
+		$(obj).addClass("jstree-ocl");
+	}
+	$(obj).parent().find(".jstree-wholerow").toggle();
+}
+
+function checkThisDept(obj){
+	var did = $(obj).attr("data-did");
+	var dname = $(obj).attr("data-dname");
+
+	var n = checkInSList(did,'d');
+	if($(obj).hasClass("jstree-checkbox")){
+		$(obj).removeClass("jstree-checkbox");
+		$(obj).addClass("jstree-checkbox-none");
+		if(n > -1){
+			cs_list.splice(n,1);
+		}
+	}else{
+		$(obj).removeClass("jstree-checkbox-none");
+		$(obj).addClass("jstree-checkbox");
+		if(n < 0){
+			cs_list.push({id:did,name:dname,t:'d'});
+		}
+	}
+
+	showSelectArea();
+}
+
+function removeThisDept(obj){
+	var did = $(obj).attr("data-did");
+	var n = checkInSList(did,'d');
+	if(n > -1){
+		$(".jstree-icon-2").each(function(index,ele){
+			if($(ele).attr("data-did") == did){
+				$(ele).removeClass("jstree-checkbox");
+				$(ele).addClass("jstree-checkbox-none");
+			}
+		});
+		cs_list.splice(n,1);
+	}
+	showSelectArea();
+}
+
+function checkThisUser(obj){
+	var uid = $(obj).attr("data-uid");
+	var pic = $(obj).attr("data-pic");
+	var n = checkInSList(uid,'u');
+	if($(obj).hasClass("jstree-checkbox")){
+		$(obj).parent().removeClass("sbox_row_selected");
+		$(obj).removeClass("jstree-checkbox");
+		$(obj).addClass("jstree-checkbox-none");
+		if(n > -1){
+			cs_list.splice(n,1);
+		}
+	}else{
+		$(obj).parent().addClass("sbox_row_selected");
+		$(obj).removeClass("jstree-checkbox-none");
+		$(obj).addClass("jstree-checkbox");
+		if(n < 0){
+			cs_list.push({id:uid,pic:pic,t:'u'});
+		}
+	}
+	showSelectArea();
+}
+
+function removeThisUser(obj){
+	var uid = $(obj).attr("data-uid");
+	var n = checkInSList(uid,'u');
+	if(n > -1){
+		$(".jstree-icon-3").each(function(index,ele){
+			if($(ele).attr("data-uid") == uid){
+				$(ele).parent().removeClass("sbox_row_selected");
+				$(ele).removeClass("jstree-checkbox");
+				$(ele).addClass("jstree-checkbox-none");
+			}
+		});
+		cs_list.splice(n,1);
+	}
+	showSelectArea();
+}
+
+$(document).ready(function(){
+	/*$(".js_cancel").click(function(){
+		$("#sbox_area").hide();
+	});*/
+});
+
+</script>
+<include file="Public/footer"/>
+

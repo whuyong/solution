@@ -1,0 +1,142 @@
+<include file="Public/header"/>
+<include file="Public/menu"/>
+<style type="text/css">
+
+</style>
+<div class="page-content">
+	<div class="page-header">
+		<h1>
+			公告管理
+			<small>
+				<i class="icon-double-angle-right"></i>
+				<eq name="Think.ACTION_NAME" value="edit">修改公告<else/>发布公告</eq>
+			</small>
+		</h1>
+	</div>
+	<!-- /.page-header -->
+	<!-- PAGE CONTENT BEGINS -->
+	<div class="row">
+		<div class="col-xs-12">
+			<div class="row">
+				<div class="tabbable">
+					<ul class="nav nav-tabs" id="myTab">
+						<li>
+							<a href="{:U('Announcement/add')}">
+								<i class="green icon-home bigger-110"></i>
+								发布公告
+							</a>
+						</li>
+						
+					</ul>
+					<div class="tab-content">
+						<div class="tab-pane in active">
+							<form  id="ajaxForm" class="form-horizontal" action="
+							<eq name='Think.ACTION_NAME' value='edit'>{:U('Announcement/update')}<else/>{:U('Announcement/insert')}</eq>" method="post" enctype="multipart/form-data">
+								<input type="hidden" name="f_id" value="{$data.f_id}"/>
+								<input type="hidden" name="module" value="{$data.module}"/>
+								<div class="form-group">
+									<label class="col-sm-3 control-label no-padding-right">公告分类</label>
+									<div class="col-sm-2">
+										<select class=" width-80 form-control" name="f_cid">
+											<option value="">全部分类</option>
+											<volist name="annouCategory" id="vo">
+												<option value="{$vo.id}" <if condition="$data['f_cid'] eq $vo['id']">selected</if> >{$vo.name}</option>
+											</volist>
+										</select>
+									</div>
+								</div>
+
+								<div class="space-4"></div>
+
+								<div class="form-group">
+									<label class="col-sm-3 control-label no-padding-right" > 公告标题 </label>
+									<div class="col-sm-9">
+										<input type="text"  name="f_title" placeholder="请输入标题" class="col-xs-10 col-sm-5" value="{$data.f_title}"/>
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<label class="col-sm-3 control-label no-padding-right"
+									      > 公告简介 </label>
+									<div class="col-sm-9">
+										<textarea  class="col-xs-5" rows="5" name="f_subTitle">{$data.f_subTitle}</textarea>
+
+									</div>
+								</div>
+								
+								<!-- <div class="form-group">
+									<label class="col-sm-3 control-label no-padding-right" > 可见范围</label>
+									<div class="col-sm-9">
+										<input type="text"  name="f_canRead" placeholder="请输入应用范围" class="col-xs-10 col-sm-5" value="所有人"/>
+									</div>
+								</div> -->
+								
+								<div class="form-group">
+									<label class="col-sm-3 control-label no-padding-right" > 内容</label>
+									<div class="col-sm-9" style="padding:0px;">
+										<textarea id="content" class="col-xs-11" name="f_content">{$data.f_content}</textarea>
+									</div>
+								</div>
+								<!--<div class="form-group">
+									<label class="col-sm-3 control-label no-padding-right" > 评论</label>
+									<div class="col-sm-2">
+									<input type="checkbox" name='' value='1'>允许成员评论
+									</div>
+								</div>-->
+								
+
+								<div class="space-4"></div>
+
+								<div class="clearfix form-actions">
+									<div class="col-md-offset-3 col-md-9">
+										<button class="btn btn-info" type="submit">
+											<i class="icon-ok bigger-110"></i>
+											提交
+										</button>
+
+										&nbsp; &nbsp; &nbsp;
+										<button class="btn" type="button">
+											<i class="icon-undo bigger-110"></i>
+											返回
+										</button>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- PAGE CONTENT END -->
+</div>
+</div>
+</div>
+
+<!-- inline scripts related to this page -->
+<script type="text/javascript">
+	seajs.use(['$','ue','ace-elements'],function($,ue){
+		//编辑器配置
+		UEDITOR_CONFIG.initialFrameHeight = 500;
+		UEDITOR_CONFIG.imageUrl  = "{:U('imgUpload',array(module=>'Announcement'))}";//图片上传路径
+		UEDITOR_CONFIG.savePath  = ["{:C('UPLOAD_PATH')}Picture/Announcement"];
+		UEDITOR_CONFIG.imagePath = "{:C('IMG_URL')}";//图片访问路径
+		ue.getEditor('content');
+
+		//标题图配置
+		// $('#id-input-file-1 ,#id-input-file-2').ace_file_input({
+		// 	no_file:'未选择图片 ...',
+		// 	btn_choose:'选择图片',
+		// 	btn_change:'改变图片',
+		// 	droppable:false,
+		// 	onchange:null,
+		// 	thumbnail:'large', //| true | large
+		// 	whitelist:'gif|png|jpg|jpeg'
+		// 	//blacklist:'exe|php'
+		// 	//onchange:''
+		// 	//
+		// });
+	});
+</script>
+<include file="Public/footer"/>
+
